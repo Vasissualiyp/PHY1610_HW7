@@ -7,14 +7,17 @@ LIBS = -lgsl -lgslcblas -lnetcdf_c++4 -lnetcdf
 all: gwanalysis
 
 # Main modules compilation {{{
-gwanalysis: gwanalysis.o gwcalc.o
-	$(CXX) $(LDFLAGS) gwanalysis.o gwcalc.o -o gwanalysis $(LIBS)
+gwanalysis: gwanalysis.o gwcalc.o fourier.o
+	$(CXX) $(LDFLAGS) gwanalysis.o gwcalc.o fourier.o -o gwanalysis $(LIBS)
 
 gwanalysis.o: gwanalysis.cpp 
 	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o gwanalysis.o gwanalysis.cpp 
-
 gwcalc.o: gwcalc.cpp 
 	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o gwcalc.o gwcalc.cpp 
+
+fourier.o: fourier.cpp 
+	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o fourier.o fourier.cpp $(LIBS)
+#}}}
 #}}}
 
 # Module tests compilation {{{
