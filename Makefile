@@ -15,6 +15,19 @@ gwanalysis.o: gwanalysis.cpp
 gwcalc.o: gwcalc.cpp 
 	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o gwcalc.o gwcalc.cpp 
 
+# Module tests compilation {{{
+
+unit_test: unit_test.o
+	$(CXX) $(LDFLAGS) -o $@ gwcalc.o $^ -lCatch2Main -lCatch2 #-lboost_unit_test_framework
+
+unit_test.o: unit_test.cpp
+	$(CXX) -c $(CXXFLAGS) -o unit_test.o unit_test.cpp
+
+functest: unit_test
+	./unit_test
+
+#}}}
+
 # Test reader {{{
 test_read: test_read.o
 	$(CXX) -g $(LDFLAGS) $< -o $@ $(LIBS)
@@ -32,5 +45,5 @@ run: gwanalysis
 	./gwanalysis > output.dat
 
 clean:
-	rm -f gwanalysis gwanalysis.o output.dat test_read.o test_read gwcalc.o
+	rm -f gwanalysis gwanalysis.o output.dat test_read.o test_read gwcalc.o test_inner_product.o test_inner_product test_corr_coeff.o test_corr_coeff
 

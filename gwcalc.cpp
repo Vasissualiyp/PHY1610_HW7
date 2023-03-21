@@ -1,7 +1,7 @@
 #include "gwanalysis.h"
 
 // Power spectrum function {{{
-void powerspectrum(rarray<double, 1>& t, 
+rvector<double> powerspectrum(rarray<double, 1>& t, 
 		   rvector<std::complex<double>>& frvector,
 		   long int length) {
 	rvector<double> absval(length);
@@ -10,7 +10,7 @@ void powerspectrum(rarray<double, 1>& t,
 		absval[i] = std::abs(frvector[i]);
 		absval[i] =absval[i] * absval[i];
 	};
-	retrun absval;
+	return absval;
 };
 //}}}
 
