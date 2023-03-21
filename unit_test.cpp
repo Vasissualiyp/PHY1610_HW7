@@ -55,17 +55,19 @@ TEST_CASE("FFT works correctly") {
 	//REQUIRE(f[0] == 1.0);
 	rvector<std::complex<double>> fhat = fft(f);
 	REQUIRE(fhat.size() == 3);
-
+	
+	double imgpart =0.86602540378443864676;
+	
 	// Check first frequency component
-	REQUIRE(std::abs(fhat[0].real() - 10.0) < 1e-15);
+	REQUIRE(std::abs(fhat[0].real() - 6.0) < 1e-15);
 	REQUIRE(std::abs(fhat[0].imag()) < 1e-15);
 
 	// Check second frequency component
-	REQUIRE(std::abs(fhat[1].real() - (-2.0)) < 1e-15);
-	REQUIRE(std::abs(fhat[1].imag() - 2.0) < 1e-15);
+	REQUIRE(std::abs(fhat[1].real() - (-1.5)) < 1e-15);
+	REQUIRE(std::abs(fhat[1].imag() - (imgpart)) < 1e-15);
 
 	// Check third frequency component
-	REQUIRE(std::abs(fhat[2].real() - (-2.0)) < 1e-15);
-	REQUIRE(std::abs(fhat[2].imag()) < 1e-15);
+	REQUIRE(std::abs(fhat[2].real() - (-1.5)) < 1e-15);
+	REQUIRE(std::abs(fhat[2].imag() + (imgpart)) < 1e-15);
 }
 
