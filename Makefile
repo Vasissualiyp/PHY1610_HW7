@@ -6,26 +6,31 @@ LIBS = -lgsl -lgslcblas -lnetcdf_c++4 -lnetcdf
 
 all: gwanalysis
 
-gwanalysis: gwanalysis.o
-		$(CXX) $(LDFLAGS) $< -o $@
+gwanalysis: gwanalysis.o gwcalc.o
+	$(CXX) $(LDFLAGS) gwanalysis.o gwcalc.o -o gwanalysis $(LIBS)
 
-gwanalysis.o: gwanalysis.cpp
-		module load $(MODULES) && $(CXX) $(CXXFLAGS) $< -o $@
+gwanalysis.o: gwanalysis.cpp 
+	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o gwanalysis.o gwanalysis.cpp 
 
+gwcalc.o: gwcalc.cpp 
+	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o gwcalc.o gwcalc.cpp 
+
+# Test reader {{{
 test_read: test_read.o
 	$(CXX) -g $(LDFLAGS) $< -o $@ $(LIBS)
 
 test_read.o: test_read.cpp
 	$(CXX) -c $(CXXFLAGS) -o test_read.o test_read.cpp
 
-.PHONY: clean
+testread: test_read
+	./test_read
+#}}}
+
+.PHONY: clean all run
 
 run: gwanalysis
 	./gwanalysis > output.dat
 
-testread: test_read
-	./test_read
-
 clean:
-		rm -f gwanalysis gwanalysis.o output.dat test_read.o test_read
+	rm -f gwanalysis gwanalysis.o output.dat test_read.o test_read gwcalc.o
 
