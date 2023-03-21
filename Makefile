@@ -18,12 +18,11 @@ gwcalc.o: gwcalc.cpp
 fourier.o: fourier.cpp 
 	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o fourier.o fourier.cpp $(LIBS)
 #}}}
-#}}}
 
 # Module tests compilation {{{
 
-unit_test: unit_test.o
-	$(CXX) $(LDFLAGS) -o $@ gwcalc.o $^ -lCatch2Main -lCatch2 #-lboost_unit_test_framework
+unit_test: unit_test.o gwcalc.o fourier.o
+	$(CXX) $(LDFLAGS) -o $@ $^ -lCatch2Main -lCatch2 $(LIBS) #-lboost_unit_test_framework
 
 unit_test.o: unit_test.cpp
 	$(CXX) -c $(CXXFLAGS) -o unit_test.o unit_test.cpp
