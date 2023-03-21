@@ -6,6 +6,7 @@ LIBS = -lgsl -lgslcblas -lnetcdf_c++4 -lnetcdf
 
 all: gwanalysis
 
+# Main modules compilation {{{
 gwanalysis: gwanalysis.o gwcalc.o
 	$(CXX) $(LDFLAGS) gwanalysis.o gwcalc.o -o gwanalysis $(LIBS)
 
@@ -14,6 +15,7 @@ gwanalysis.o: gwanalysis.cpp
 
 gwcalc.o: gwcalc.cpp 
 	module load $(MODULES) && $(CXX) -c $(CXXFLAGS) -o gwcalc.o gwcalc.cpp 
+#}}}
 
 # Module tests compilation {{{
 
@@ -45,5 +47,5 @@ run: gwanalysis
 	./gwanalysis > output.dat
 
 clean:
-	rm -f gwanalysis gwanalysis.o output.dat test_read.o test_read gwcalc.o test_inner_product.o test_inner_product test_corr_coeff.o test_corr_coeff
+	rm -f gwanalysis gwanalysis.o output.dat test_read.o test_read gwcalc.o test_inner_product.o test_inner_product test_corr_coeff.o test_corr_coeff unit_test
 

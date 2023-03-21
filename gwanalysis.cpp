@@ -18,7 +18,7 @@ int main(){
 	rvector<std::complex<double>> frvector(file.getDim("nt").getSize());
 	file.getVar("f").getVar(frvector.data());
 	
-	rvector<double> absval = powerspectrum(time_data, frvector, t_len);
+	rvector<double> absval = powerspectrum(frvector);
 	
 	return 0;
 
