@@ -14,18 +14,11 @@ int main(){
 	rarray<double, 1> time_data(t_len);
 	time_var.getVar(time_data.data());
 
-	// Read the x array
+	// Read the f array
 	rvector<std::complex<double>> frvector(file.getDim("nt").getSize());
 	file.getVar("f").getVar(frvector.data());
 	
-	
-	powerspectrum(time_data, frvector, t_len);
-
-	//for (long int i = 0; i < t_len; i++) {
-	//	std::cout << "Time: " << time_data[i] << std::endl;
-	//	std::cout << "Data: " << frvector[i] << std::endl;
-	//	std::cout << std::endl;
-	//}
+	rvector<double> absval = powerspectrum(time_data, frvector, t_len);
 	
 	return 0;
 
