@@ -7,6 +7,7 @@ int main(){
 	const std::string prefix = "detection"; // File name prefix
 	const std::string suffix = ".nc";       // File name suffix
 	const int num_files = 32;               // Number of files to generate
+	const int best_fits_no= 5;  		// How many of the best fits do you want
 
 	// Read the observational data file
 	auto data = read_data_from_netcdf("GWprediction.nc");
@@ -41,7 +42,15 @@ int main(){
 
 	}
 	
-	
-	
+	// Sort the elements in both of the arrays
+	sorter(filenames, correlators);
+
+	// Final output
+	std::cout << "Best signal source candidates: " << "\n" << std::endl;
+	for (int i = 0; i < best_fits_no; i++) {
+		std::cout << filenames[i] << std::endl;
+		std::cout << "Correlation factor: " << correlators[i] << "\n" << std::endl;
+	}
+
 	return 0;
 }

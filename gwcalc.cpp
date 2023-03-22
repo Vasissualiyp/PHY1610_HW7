@@ -47,3 +47,25 @@ double signal_corr(rvector<std::complex<double>>& A,
 	return correlation;
 }
 //}}}
+
+// A sorter funciton that sorts the final arrays of filenames and correlators {{{
+void sorter(std::vector<std::string>& filenames,
+	    std::vector<double>& correlators) {
+
+	long int num_files = correlators.size();
+
+	for (int i = 0; i < num_files; i++) {
+	for (int j = 0; j < num_files; j++) {
+		if (correlators[i] > correlators[j]) {
+		// Swap correlators[i] and correlators[j]
+		double temp = correlators[i];
+		correlators[i] = correlators[j];
+		correlators[j] = temp;
+
+		// Swap filenames[i] and filenames[j]
+		std::string temp_str = filenames[i];
+		filenames[i] = filenames[j];
+		filenames[j] = temp_str;
+        } } }
+}
+//}}}

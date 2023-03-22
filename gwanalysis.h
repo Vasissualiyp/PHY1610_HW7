@@ -18,3 +18,6 @@ double signal_corr(rvector<std::complex<double>>& A,
 std::pair<rvector<std::complex<double>>, rarray<double, 1>> read_data_from_netcdf(const std::string& filename);
 
 rvector<std::complex<double>> fft(rvector<std::complex<double>>& f);
+
+void sorter(std::vector<std::string>& filenames,
+	    std::vector<double>& correlators    );
