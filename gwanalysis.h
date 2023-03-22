@@ -1,6 +1,11 @@
 #include <rarray>
 #include <netcdf>
 #include <complex>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
 rvector<double> powerspectrum(rvector<std::complex<double>>& frvector);
 
 double inner_product(rarray<double, 1>& A, rarray<double, 1>& B);
