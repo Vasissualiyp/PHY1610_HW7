@@ -5,7 +5,8 @@
 #include <iostream>
 #include <rarray>
 
-TEST_CASE("Inner product works correctly") {
+
+TEST_CASE("Inner product works correctly") {//{{{
 	rarray<double, 1> vec1(3);
 	for(int i=0; i<3; i++) {
 		vec1[i] = i+1;
@@ -17,9 +18,9 @@ TEST_CASE("Inner product works correctly") {
 	double result = inner_product(vec1, vec2);
 	REQUIRE(result == 32);
 	} 
+//}}}
 
-
-TEST_CASE("Correlation coefficient works correctly") {
+TEST_CASE("Correlation coefficient works correctly") {//{{{
 	rarray<double, 1> vec1(3);
 	for(int i=0; i<3; i++) {
 		vec1[i] = i+1;
@@ -31,8 +32,9 @@ TEST_CASE("Correlation coefficient works correctly") {
 	double result = corr_coeff(vec1, vec2);
 	REQUIRE(result == (32 / sqrt(77* 14)));
 	}
+//}}}
 
-TEST_CASE("Correlation coefficient for signal works correctly") {
+TEST_CASE("Correlation coefficient for signal works correctly") {//{{{
 	rvector<std::complex<double>> vec1(3);
 	//rarray<double, 1> vec1(3);
 	for(int i=0; i<3; i++) {
@@ -46,8 +48,9 @@ TEST_CASE("Correlation coefficient for signal works correctly") {
 	double result = signal_corr(vec1, vec2);
 	REQUIRE(result == (32 / sqrt(77* 14)));
 }
+//}}}
 
-TEST_CASE("FFT works correctly") {
+TEST_CASE("FFT works correctly") {//{{{
 	rvector<std::complex<double>> f(3);
 	for(int i=0; i<3; i++) {
 		f[i] = i + 1 ;
@@ -70,4 +73,23 @@ TEST_CASE("FFT works correctly") {
 	REQUIRE(std::abs(fhat[2].real() - (-1.5)) < 1e-15);
 	REQUIRE(std::abs(fhat[2].imag() + (imgpart)) < 1e-15);
 }
+//}}}
 
+TEST_CASE("Sorter function works correctly") { //{{{
+    // Create test input data
+    std::vector<std::string> filenames {"file1.txt", "file2.txt", "file3.txt"};
+    std::vector<double> correlators {0.5, 0.2, 0.8};
+
+    // Call the sorter function on the test data
+    sorter(filenames, correlators);
+
+    // Check that the resulting filenames and correlators are sorted correctly
+    REQUIRE(filenames[0] == "file3.txt");
+    REQUIRE(filenames[1] == "file1.txt");
+    REQUIRE(filenames[2] == "file2.txt");
+
+    REQUIRE(correlators[0] == 0.8);
+    REQUIRE(correlators[1] == 0.5);
+    REQUIRE(correlators[2] == 0.2);
+}
+//}}}
